@@ -24,13 +24,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = config('SECRET_KEY', default='django-insecure-development-key-change-in-production')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', cast=bool, default=False)
+DEBUG = config('DEBUG', cast=bool, default=True)
 
 # Set ALLOWED_HOSTS for Render and custom domains
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='your-app.onrender.com').split(',')
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='127.0.0.1,localhost,https://student-management-system-s2s8.onrender.com').split(',')
 
 
 # Application definition
@@ -94,16 +94,25 @@ WSGI_APPLICATION = "Student_management_system.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST'),
-        'PORT': config('DB_PORT'),
+# Database configuration with fallback to SQLite for development
+if config('DB_NAME', default=None):
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': config('DB_NAME'),
+            'USER': config('DB_USER'),
+            'PASSWORD': config('DB_PASSWORD'),
+            'HOST': config('DB_HOST'),
+            'PORT': config('DB_PORT'),
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 
 # Password validation
@@ -194,7 +203,7 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
 DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
 
-ENCRYPTION_KEY = config('ENCRYPTION_KEY')
+ENCRYPTION_KEY = config('ENCRYPTION_KEY', default='development-encryption-key-change-in-production')
 
 # CSRF and cookie security for production
 if not DEBUG:
@@ -203,7 +212,7 @@ if not DEBUG:
     CSRF_COOKIE_SAMESITE = 'Lax'
     # Set your Render and custom domains here
     CSRF_TRUSTED_ORIGINS = [
-        'https://your-app.onrender.com',
+        'https://student-management-system-s2s8.onrender.com',
         # 'https://yourcustomdomain.com',
     ]
     SECURE_SSL_REDIRECT = True
