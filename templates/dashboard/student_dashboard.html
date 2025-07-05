@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Student Dashboard{% endblock %}
+
+{% block content %}
+<div class="mt-4 text-center">
+  {% if profile.profile_picture %}
+    <img src="{{ profile.profile_picture.url }}" class="rounded-circle mb-3" width="100" height="100" alt="Profile Picture">
+  {% else %}
+    <img src="{% static 'images/default_avatar.png' %}" class="rounded-circle mb-3" width="100" height="100" alt="Default Avatar">
+  {% endif %}
+</div>
+
+<div class="mt-4">
+  <h2 class="mb-3">Welcome, {{ request.user.username }} 👋</h2>
+  <p class="text-muted">This is your student dashboard. Here you can manage your academic profile, view transcripts, and track your progress.</p>
+
+  <div class="row mt-4">
+    <div class="col-md-4">
+      <div class="card shadow-sm p-3">
+        <h5>📄 View Transcript</h5>
+        <p>Access your academic records.</p>
+        <a href="{% url 'view_transcript' %}" class="btn btn-outline-primary btn-sm">View Transcript</a>
+        <a href="{% url 'student_schedule' %}" class="btn btn-outline-info btn-sm mt-2">My Schedule</a>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card shadow-sm p-3">
+        <h5>📝 Update Profile</h5>
+        <p>Edit your personal and academic details.</p>
+        <a href="{% url 'edit_profile' %}" class="btn btn-outline-secondary btn-sm">Edit Profile</a>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card shadow-sm p-3">
+        <h5>📚 Browse Courses</h5>
+        <p>Find and enroll in available courses.</p>
+        <a href="{% url 'course_list' %}" class="btn btn-outline-success btn-sm">Browse Courses</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

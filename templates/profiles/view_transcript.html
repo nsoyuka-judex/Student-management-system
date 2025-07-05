@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}View Transcript{% endblock %}
+{% block content %}
+  <h2>Your Transcript</h2>
+  {% if profile.transcript %}
+    <a href="{{ profile.transcript.url }}" target="_blank" class="btn btn-primary">Download/View Transcript</a>
+  {% else %}
+    <p>No transcript uploaded.</p>
+  {% endif %}
+  <a href="{% url 'dashboard' %}" class="btn btn-secondary mt-3">Back to Dashboard</a>
+{% endblock %} 

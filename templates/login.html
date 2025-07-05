@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+  <div class="col-md-6">
+    <div class="card shadow-sm p-4">
+      <h3 class="mb-4 text-center">Login to Your Account</h3>
+
+      {% if form.errors %}
+        <div class="alert alert-danger">
+          Invalid username or password. Please try again.
+        </div>
+      {% endif %}
+
+      <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="id_username" class="form-label">Username</label>
+          <input type="text" name="username" class="form-control" id="id_username" required>
+        </div>
+        <div class="mb-3">
+          <label for="id_password" class="form-label">Password</label>
+          <input type="password" name="password" class="form-control" id="id_password" required>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Login</button>
+      </form>
+
+      <div class="text-center mt-3">
+        <a href="{% url 'password_reset' %}">Forgot Password?</a> |
+        <a href="{% url 'register_student' %}">Create Account</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

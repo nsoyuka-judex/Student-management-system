@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="mt-4">
+  <h2 class="mb-3">Welcome, {{ request.user.username }} 🛠️</h2>
+  <p class="text-muted">This is your admin dashboard. You can manage users, approve enrollments, and oversee the system.</p>
+
+  <div class="row mt-4">
+    <div class="col-md-4">
+      <div class="card shadow-sm p-3">
+        <h5>👤 Manage Users</h5>
+        <p>View and edit user accounts.</p>
+        <a href="/admin/auth/user/" class="btn btn-outline-primary btn-sm">Open Admin Panel</a>
+        <a href="{% url 'edit_profile' %}" class="btn btn-outline-secondary btn-sm">Edit Profile</a>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card shadow-sm p-3">
+        <h5>✅ Approve Enrollments</h5>
+        <p>Review and approve student requests.</p>
+        <a href="#" class="btn btn-outline-success btn-sm">Review Requests</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Enrolled Students - {{ course.code }}{% endblock %}
+{% block content %}
+<h2>Enrolled Students for {{ course.code }} - {{ course.name }}</h2>
+<a href="{% url 'teacher_courses' %}" class="btn btn-link mb-3">&larr; Back to My Courses</a>
+{% if enrollments %}
+  <ul class="list-group mb-4">
+    {% for enrollment in enrollments %}
+      <li class="list-group-item">
+        {{ enrollment.student.username }} ({{ enrollment.student.get_full_name }})
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <div class="alert alert-warning">No students enrolled yet.</div>
+{% endif %}
+{% endblock %} 

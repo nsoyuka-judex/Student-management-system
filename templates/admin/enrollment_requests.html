@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}Enrollment Requests{% endblock %}
+{% block content %}
+<h2>Pending Enrollment Requests</h2>
+
+<!-- Filter/Search Form -->
+<form method="get" class="row g-2 mb-3">
+  <div class="col-auto">
+    <input type="text" name="student" class="form-control" placeholder="Student Username" value="{{ student_query }}">
+  </div>
+  <div class="col-auto">
+    <input type="text" name="course" class="form-control" placeholder="Course Name" value="{{ course_query }}">
+  </div>
+  <div class="col-auto">
+    <button type="submit" class="btn btn-primary">Filter</button>
+    <a href="?" class="btn btn-secondary ms-2">Reset</a>
+  </div>
+</form>
+
+{% if pending %}
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Student</th>
+        <th>Course</th>
+        <th>Requested At</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for enrollment in pending %}
+      <tr>
+        <td>{{ enrollment.student.username }}</td>
+        <td>{{ enrollment.course.code }} - {{ enrollment.course.name }}</td>
+        <td>{{ enrollment.requested_at }}</td>
+        <td>
+          <form method="post" class="d-inline">{% csrf_token %}
+            <input type="hidden" name="enrollment_id" value="{{ enrollment.id }}">
+            <input type="hidden" name="action" value="approve">
+            <button type="submit" class="btn btn-success btn-sm">Approve</button>
+          </form>
+          <form method="post" class="d-inline ms-2">{% csrf_token %}
+            <input type="hidden" name="enrollment_id" value="{{ enrollment.id }}">
+            <input type="hidden" name="action" value="deny">
+            <input type="text" name="note" placeholder="Reason (optional)" class="form-control form-control-sm d-inline-block w-auto" style="width: 140px;">
+            <button type="submit" class="btn btn-danger btn-sm">Deny</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <div class="alert alert-info">No pending enrollment requests.</div>
+{% endif %}
+{% endblock %} 

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Course Details{% endblock %}
+{% block content %}
+<h2>{{ course.code }} - {{ course.name }}</h2>
+<p>{{ course.description }}</p>
+<p><strong>Teacher:</strong> {{ course.teacher }}</p>
+<p><strong>Schedule:</strong> {{ course.schedule }}</p>
+<p><strong>Capacity:</strong> {{ course.capacity }}</p>
+<p><strong>Prerequisites:</strong>
+  {% if course.prerequisites.all %}
+    {% for pr in course.prerequisites.all %}{{ pr.name }}{% if not forloop.last %}, {% endif %}{% endfor %}
+  {% else %}None{% endif %}
+</p>
+<hr>
+{% if error %}
+  <div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+{% if already_enrolled %}
+  <div class="alert alert-info">
+    You have already requested/enrolled in this course. Status: <strong>{{ enrollment.status|title }}</strong>
+  </div>
+{% elif can_enroll %}
+  <form method="post">{% csrf_token %}
+    <button type="submit" class="btn btn-success">Request Enrollment</button>
+  </form>
+{% else %}
+  <div class="alert alert-warning">No seats available for this course.</div>
+{% endif %}
+<a href="{% url 'course_list' %}" class="btn btn-link mt-3">&larr; Back to Courses</a>
+{% endblock %} 

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}My Schedule{% endblock %}
+{% block content %}
+<h2>My Class Schedule</h2>
+{% if enrollments %}
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Course</th>
+        <th>Teacher</th>
+        <th>Schedule</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for enrollment in enrollments %}
+      <tr>
+        <td>{{ enrollment.course.code }} - {{ enrollment.course.name }}</td>
+        <td>{{ enrollment.course.teacher }}</td>
+        <td>{{ enrollment.course.schedule }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <div class="alert alert-info">You have no approved courses in your schedule yet.</div>
+{% endif %}
+<a href="{% url 'dashboard' %}" class="btn btn-link mt-3">&larr; Back to Dashboard</a>
+{% endblock %} 
