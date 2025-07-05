@@ -30,7 +30,7 @@ SECRET_KEY = config('SECRET_KEY', default='django-insecure-development-key-chang
 DEBUG = config('DEBUG', cast=bool, default=True)
 
 # Set ALLOWED_HOSTS for Render and custom domains
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='127.0.0.1,localhost,https://student-management-system-s2s8.onrender.com').split(',')
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='student-management-system-s2s8.onrender.com,localhost,127.0.0.1').split(',')
 
 
 # Application definition
