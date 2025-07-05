@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: student-management-system
+    env: python
+    buildCommand: ./build.sh
+    startCommand: gunicorn Student_management_system.wsgi:application
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.13.4
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: False
+      - key: ALLOWED_HOSTS
+        value: student-management-system-s2s8.onrender.com
+      - key: ENCRYPTION_KEY
+        generateValue: true 
