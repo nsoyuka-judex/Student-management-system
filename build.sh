@@ -8,5 +8,10 @@ pip install -r requirements.txt
 # Collect static files
 python manage.py collectstatic --no-input
 
-# Run database migrations
-python manage.py migrate 
+# Only run migrations if database is configured
+if [ -n "$DB_NAME" ]; then
+    echo "Database configured, running migrations..."
+    python manage.py migrate
+else
+    echo "No database configured, skipping migrations..."
+fi 

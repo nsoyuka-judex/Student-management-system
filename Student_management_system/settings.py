@@ -95,15 +95,21 @@ WSGI_APPLICATION = "Student_management_system.wsgi.application"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 # Database configuration with fallback to SQLite for development
-if config('DB_NAME', default=None):
+DB_NAME = config('DB_NAME', default=None)
+DB_USER = config('DB_USER', default=None)
+DB_PASSWORD = config('DB_PASSWORD', default=None)
+DB_HOST = config('DB_HOST', default=None)
+DB_PORT = config('DB_PORT', default=None)
+
+if all([DB_NAME, DB_USER, DB_PASSWORD, DB_HOST]):
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': config('DB_NAME'),
-            'USER': config('DB_USER'),
-            'PASSWORD': config('DB_PASSWORD'),
-            'HOST': config('DB_HOST'),
-            'PORT': config('DB_PORT'),
+            'NAME': DB_NAME,
+            'USER': DB_USER,
+            'PASSWORD': DB_PASSWORD,
+            'HOST': DB_HOST,
+            'PORT': DB_PORT or '5432',
         }
     }
 else:

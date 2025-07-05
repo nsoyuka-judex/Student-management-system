@@ -14,4 +14,15 @@ services:
       - key: ALLOWED_HOSTS
         value: student-management-system-s2s8.onrender.com
       - key: ENCRYPTION_KEY
-        generateValue: true 
+        generateValue: true
+      # Database variables (set these in Render dashboard if using PostgreSQL)
+      # - key: DB_NAME
+      #   value: your_database_name
+      # - key: DB_USER
+      #   value: your_database_user
+      # - key: DB_PASSWORD
+      #   value: your_database_password
+      # - key: DB_HOST
+      #   value: your_database_host
+      # - key: DB_PORT
+      #   value: 5432 
