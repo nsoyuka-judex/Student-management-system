@@ -7,3 +7,4 @@ whitenoise
 django-environ
 django-ratelimit
 psycopg2-binary
+gunicorn
