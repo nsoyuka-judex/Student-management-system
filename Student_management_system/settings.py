@@ -219,7 +219,7 @@ if not DEBUG:
     # Set your Render and custom domains here
     CSRF_TRUSTED_ORIGINS = [
         'https://student-management-system-s2s8.onrender.com',
-        # 'https://yourcustomdomain.com',
+        # Add any custom domains here, e.g. 'https://yourcustomdomain.com',
     ]
     SECURE_SSL_REDIRECT = True
     SECURE_HSTS_SECONDS = 31536000
